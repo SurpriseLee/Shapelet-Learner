@@ -6,6 +6,7 @@ import org.jfree.ui.RefineryUtilities;
 import tech.artisanhub.Visualizer.XYLineChart_AWT;
 import weka.core.Instances;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -15,13 +16,13 @@ public class LearnShapelets
     {       long startTime = System.currentTimeMillis();
         try {
 
-            String ARFFName = "dataset/pima-indians-diabetes.arff";
+            String ARFFName = "dataset/occupancy_withoutTime.arff";
             Instances data = ShapeletFilter.loadData(ARFFName);
 
             int k = Integer.MAX_VALUE; // number of shapelets
             int minLength = 2;
             int maxLength = data.get(1).numValues()-1;
-            int shapeletClusterSize = 40; //this defines the threshold. Put a larger number to detect all the events
+            int shapeletClusterSize = 90; //this defines the threshold. Put a larger number to detect all the events
 
             String outPutFile = "dataset/generatedShapelets.txt";
             ShapeletFilter sf = new ShapeletFilter(k, minLength, maxLength);
@@ -49,14 +50,17 @@ public class LearnShapelets
         System.out.println("\nExecution time in milli seconds: "+totalTime);
     }
 
-    private static void displayShapeletStats(ArrayList<Shapelet> shapelets,int noOfColumns){
+    private static void displayShapeletStats(ArrayList<Shapelet> shapelets,int noOfColumns) throws IOException {
         int size = 0;
         int startPos =0;
         int shapeletVal = 0;
         int sizeOfTheShapelet = 0;
         int eventCount =0;
+        BufferedWriter output = null;
         for(Shapelet val : shapelets){
             eventCount ++;
+            File file = new File("dataset/importantShapeletsEvent"+eventCount+".txt");
+            output = new BufferedWriter(new FileWriter(file));
             if(val != null) {
                 sizeOfTheShapelet = val.contentInMergedShapelets.size();
                 XYSeriesCollection dataset = new XYSeriesCollection( );
@@ -74,8 +78,13 @@ public class LearnShapelets
                             series.add(j,val.contentInMergedShapelets.get(i).get(j-shapeletVal));
                         }
                     }
+                    int contentSize = val.contentInMergedShapelets.get(i).size();
+                    output.write(val.contentInMergedShapelets.get(i).get(contentSize-2).intValue()+",");
+                    output.write(contentSize-3+",");
+                    output.write(val.contentInMergedShapelets.get(i).get(contentSize-3).intValue()+"\n");
                     dataset.addSeries(series);
                 }
+                output.close();
 
                 XYLineChart_AWT chart = new XYLineChart_AWT("Shapelet Learner", "Shapelets stats for event "+eventCount,dataset);
                 chart.pack( );

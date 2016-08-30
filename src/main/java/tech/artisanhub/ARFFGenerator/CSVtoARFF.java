@@ -8,8 +8,8 @@ import java.io.File;
 
 public class CSVtoARFF {
 
-    private static final String TRAINING_DATA = "dataset/pima-indians-diabetes.data";
-    private static final String OUTPUT_DATA = "dataset/pima-indians-diabetes.arff";
+    private static final String TRAINING_DATA = "dataset/occupancy_withoutTime.data";
+    private static final String OUTPUT_DATA = "dataset/occupancy_withoutTime.arff";
 
 
 

@@ -22,7 +22,6 @@ public class LearnShapelets
             int k = Integer.MAX_VALUE; // number of shapelets
             int minLength = 2;
             int maxLength = data.get(1).numValues()-1;
-            int shapeletClusterSize = 90; //this defines the threshold. Put a larger number to detect all the events
 
             String outPutFile = "dataset/generatedShapelets.txt";
             ShapeletFilter sf = new ShapeletFilter(k, minLength, maxLength);
@@ -36,6 +35,7 @@ public class LearnShapelets
                 arr.add((int)val);
             }
 
+            int shapeletClusterSize = (int) Math.sqrt(generatedShapelets.size()); //this defines the threshold. Put a larger number to detect all the events
             ArrayList<Shapelet> mergedShapelets = new MergeShapelets().mergeShapelets(generatedShapelets,shapeletClusterSize); //meerging shapelets
             ArrayList<Shapelet> finalOutputShapelets = new ImportantShapelets().GetImportantShapelets(mergedShapelets,data,arr); //find important shapelets
             displayShapeletStats(finalOutputShapelets,data.get(1).numValues()-1);

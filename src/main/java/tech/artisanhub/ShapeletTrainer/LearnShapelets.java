@@ -16,7 +16,7 @@ public class LearnShapelets
     {       long startTime = System.currentTimeMillis();
         try {
 
-            String ARFFName = "dataset/occupancy_withoutTime.arff";
+            String ARFFName = "dataset/iris.arff";
             Instances data = ShapeletFilter.loadData(ARFFName);
 
             int k = Integer.MAX_VALUE; // number of shapelets
@@ -81,7 +81,8 @@ public class LearnShapelets
                     int contentSize = val.contentInMergedShapelets.get(i).size();
                     output.write(val.contentInMergedShapelets.get(i).get(contentSize-2).intValue()+",");
                     output.write(contentSize-3+",");
-                    output.write(val.contentInMergedShapelets.get(i).get(contentSize-3).intValue()+"\n");
+                    output.write(val.contentInMergedShapelets.get(i).get(contentSize-3).intValue()+",");
+                    output.write(val.contentInMergedShapelets.get(i).get(contentSize-1).intValue()+"\n");
                     dataset.addSeries(series);
                 }
                 output.close();

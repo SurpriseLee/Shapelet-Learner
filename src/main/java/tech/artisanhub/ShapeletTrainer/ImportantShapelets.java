@@ -23,7 +23,7 @@ public class ImportantShapelets {
             shapeletBucket.put(classValues.get(i), temp);
             //remember Above can be optimized.
         }
-        Map<Integer,Double> clasNprob = new HashMap<Integer, Double>();
+        Map<Integer,Double> clasNprob = new HashMap<Integer, Double>(); 
 
         for (Shapelet s : shapelets) {
             // Size of MaxProbClassVal is always one as it returns only a key value pair.
@@ -77,10 +77,10 @@ public class ImportantShapelets {
     }
 
 
-
+    // calculate the maximum class label probability of each shapelet
     private Map<Integer,Double> MaxProbClassVal(Shapelet shaplet) {
        ArrayList<ArrayList<Double>> shapeContent = shaplet.contentInMergedShapelets;
-        ArrayList<Double> tempArr = new ArrayList<Double>();
+        ArrayList<Double> tempArr = new ArrayList<Double>();   // store class label of the each shapelet of each merged shapelet group
         int count = 0;
         for(ArrayList<Double> val : shapeContent){
             tempArr.add(count,val.get(val.size()-1));
@@ -89,7 +89,7 @@ public class ImportantShapelets {
 
         Map <Integer,Double> retValue = new HashMap<Integer, Double>();
         //Arrays.sort(tempArr);
-        Map <Double,Integer> classValCount = new HashMap<Double, Integer>();
+        Map <Double,Integer> classValCount = new HashMap<Double, Integer>();   // count the number of each class label
 
         for(int i=0;i<tempArr.size();i++){
            if(classValCount.containsKey(tempArr.get(i))){
@@ -103,7 +103,7 @@ public class ImportantShapelets {
         }
         int MaxVal = 0;
         Double MaxKey = 0.0; // classValues
-       for (Map.Entry<Double,Integer> val : classValCount.entrySet()){
+       for (Map.Entry<Double,Integer> val : classValCount.entrySet()){    // go through all the element of a Map
             if(val.getValue()>MaxVal){
                 MaxVal = val.getValue();
                 MaxKey = val.getKey();

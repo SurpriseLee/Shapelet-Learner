@@ -45,4 +45,6 @@ public class MergeShapelets {
        mergedShapeletsOut.add(new Shapelet(temp));
        return mergedShapeletsOut;
    }
+   
+   
 }

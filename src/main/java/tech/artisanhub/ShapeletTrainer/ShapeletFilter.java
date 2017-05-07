@@ -484,7 +484,7 @@ public class ShapeletFilter {
             stdv += (input[i] - mean) * (input[i] - mean);
         }
 
-        stdv = stdv / input.length - classValPenalty;
+        stdv = stdv / (input.length - classValPenalty);   // modify by myself
         stdv = Math.sqrt(stdv);
 
         for (int i = 0; i < input.length - classValPenalty; i++) {

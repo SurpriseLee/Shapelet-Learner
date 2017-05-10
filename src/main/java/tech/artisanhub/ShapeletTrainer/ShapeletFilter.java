@@ -454,7 +454,7 @@ public class ShapeletFilter {
                 bestSum = sum;
             }
         }
-        return (1.0 / candidate.length * bestSum);
+        return Math.sqrt((1.0 / candidate.length * bestSum));
     }
 
     /**
